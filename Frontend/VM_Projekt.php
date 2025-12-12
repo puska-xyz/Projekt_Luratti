@@ -10,14 +10,37 @@
         background: #0f172a;
         color: #e5e7eb;
         margin: 0;
-        padding: 0;
+        padding: 16px;
     }
 
     header {
-        padding: 20px 40px;
-        background: rgba(15, 23, 42, 0.9);
-        border-color: 1px solid #1f2937;
+        position: sticky;
+        top: 16px; /* Abstand von oben, wenn sticky */
+        z-index: 50;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        padding: 12px 24px;
+
+        /*background: rgba(255, 255, 255, 0.18);*/
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border-radius: 9999px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+
+        max-height: 20px;
+        margin: 0 auto;         /* zentriert */
+    }   
+
+    /*
+    .logo {
+        height: 150px;   
     }
+    */
     
     h1 { 
         margin: 0;
@@ -40,9 +63,15 @@
     .card {
         background: rgba(15, 23, 42, 0.9);
         padding: 18px 20px;
+        margin-bottom: 15px;
         border-radius: 14px;
         border: 1px solid #1f2937;
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        transition: border-color 0.25s ease, border-width 0.25s ease;
+    }
+
+    .card:hover {
+        border: 1px solid #22c55e;
     }
 
     h2 {
@@ -63,99 +92,14 @@
         border-radius: 8px;
         border: 1px solid #374151;
         background: #020617;
-        font-size: 0.9 rem;
+        font-size: 0.9rem;
+        color: #e5e7eb;
     }
 
-    .small, .medium, .big {
-        border: 2px solid black;
-        border-radius: 10px;
-        width: 300px;
-        height: 500px;
-        transition: all 0.5s ease;
-    }
-
-    .small:hover, .medium:hover, .big:hover {
-        box-shadow: 10px 10px 10px lightblue;
-        transform: scale(1.025);
-    }
-
-    .smallText, .mediumText, .bigText {
-        text-align: center;
-    }
-
-    .server {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-
-    /* -------------------
-       Balkendiagramme
-       ------------------- */
-    .diagrammSmall, .diagrammMedium, .diagrammBig {
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-end;
-        height: 150px;
-        width: 150px;
-        margin-left: 75px;
-        margin-top: 120px;
-    }
-
-    .bar {
-        width: 30px;
-        border-radius: 5px 5px 0 0;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        color: white;
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    .bar.cpu { background-color: darkblue; }
-    .bar.ram { background-color: blue; }
-    .bar.ssd { background-color: turquoise; }
-
-    .diagrammText {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        margin-top: 10px;
-    }
-
-    .cpu { color: darkblue; }
-    .ram { color: blue; }
-    .ssd { color: turquoise; }
-
-    .formular {
-        margin-top: 30px;
-        border: 2px solid black;
-        border-radius: 10px;
-        width: 1095px;
-        height: 300px;
-        margin-left: 55px;
-        padding: 30px;
-        transition: all 0.5s ease;
-    }
-
-    .formular:hover {
-        box-shadow: 5px 5px 5px lightblue;
-        transform: scale(0.2)
-    }
-
-    .input {
-        width: 1070px;
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .text {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+    input[type="text"]:focus,
+    select:focus {
+        outline: none;
+        border-color: #22c55e;
     }
 
     button {
@@ -171,15 +115,30 @@
     }
 
     button.delete {
-        margin-top: 12px;
-        padding: 9px 16px;
-        border-radius: 999px;
         background: #ef4444;
         color: #450a0a;
-        border: none;
-        font-weight: 600;
-        font-size: 0.9rem;
+    }
 
+    button:hover,
+    button:focus {
+        filter: brightness(1.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 6px 8px;
+        border-bottom: 1px solid #1f2937;
+        text-align: left;
+    }
+
+    th {
+        font-weight: 600;
+        color: #9ca3af;
     }
 
     .preis {
@@ -205,10 +164,10 @@
     }
 
     footer {
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.8rem;
-            padding-bottom: 20px;
+        text-align: center;
+        color: #6b7280;
+        font-size: 0.8rem;
+        padding-bottom: 20px;
     }
 </style>
 </head>
@@ -216,11 +175,13 @@
 
 <body>
     <header>
+        <!-- <img src="Bilder/uber_cloud_logo.webp" alt="Logo" class="logo"> -->
         <h1>UberCloud - Demo (Modul 346)</h1>
     </header>
 
     <main>
-        <div class="summary">
+        
+    <div class="summary">
             <div class="summary-item">
                 <p>Laufende VMs:</p>
             </div>
@@ -230,52 +191,6 @@
             </div>
         </div>
 
-        <div class="server">
-                <!-- SMALL -->
-                <div class="small">
-                    <h2 class="smallText">Small</h2>
-                    <div class="diagrammSmall">
-                        <div class="bar cpu" style="height:75%;">75%</div>
-                        <div class="bar ram" style="height:50%;">50%</div>
-                        <div class="bar ssd" style="height:30%;">30%</div>
-                    </div>
-                    <div class="diagrammText">
-                        <h4 class="cpu">CPU: </h4>
-                        <h4 class="ram">RAM: </h4>
-                        <h4 class="ssd">SSD: </h4>
-                    </div>
-                </div>
-
-                <!-- MEDIUM -->
-                <div class="medium">
-                    <h2 class="mediumText">Medium</h2>
-                    <div class="diagrammMedium">
-                        <div class="bar cpu" style="height:60%;">60%</div>
-                        <div class="bar ram" style="height:40%;">40%</div>
-                        <div class="bar ssd" style="height:80%;">80%</div>
-                    </div>
-                    <div class="diagrammText">
-                        <h4 class="cpu">CPU: </h4>
-                        <h4 class="ram">RAM: </h4>
-                        <h4 class="ssd">SSD: </h4>
-                    </div>
-                </div>
-
-                <!-- BIG -->
-                <div class="big">
-                    <h2 class="bigText">Big</h2>
-                    <div class="diagrammBig">
-                        <div class="bar cpu" style="height:90%;">90%</div>
-                        <div class="bar ram" style="height:70%;">70%</div>
-                        <div class="bar ssd" style="height:50%;">50%</div>
-                    </div>
-                    <div class="diagrammText">
-                        <h4 class="cpu">CPU: </h4>
-                        <h4 class="ram">RAM: </h4>
-                        <h4 class="ssd">SSD: </h4>
-                    </div>
-                </div>
-            </div>
 
         <div class="grid">
 
@@ -292,32 +207,30 @@
                         <option value="">Bitte wählen</option>
                         <!-- do kann meh au eh foreach loop mache -->
                         <option value="1">1 Cores (5CHF / Monat)</option>
-                        <option value="1">2 Cores (5CHF / Monat)</option>
-                        <option value="1">4 Cores (5CHF / Monat)</option>
-                        <option value="1">8 Cores (5CHF / Monat)</option>
-                        <option value="1">16 Cores (5CHF / Monat)</option>
+                        <option value="2">2 Cores (5CHF / Monat)</option>
+                        <option value="4">4 Cores (5CHF / Monat)</option>
+                        <option value="8">8 Cores (5CHF / Monat)</option>
+                        <option value="16">16 Cores (5CHF / Monat)</option>
                     </select>
 
-                    <label for="cpu">CPU (Cores)</label>
+                    <label for="cpu">RAM (GB)</label>
                     <select name="cpu" id="cpu" required>
                         <option value="">Bitte wählen</option>
                         <!-- do kann meh au eh foreach loop mache -->
-                        <option value="1">1 Cores (5CHF / Monat)</option>
-                        <option value="1">2 Cores (5CHF / Monat)</option>
-                        <option value="1">4 Cores (5CHF / Monat)</option>
-                        <option value="1">8 Cores (5CHF / Monat)</option>
-                        <option value="1">16 Cores (5CHF / Monat)</option>
+                        <option value="4">4 GB</option>
+                        <option value="8">8 GB</option>
+                        <option value="16">16 GB</option>
+                        <option value="32">32 GB</option>
                     </select>
 
-                    <label for="cpu">CPU (Cores)</label>
+                    <label for="cpu">SSD (GB)</label>
                     <select name="cpu" id="cpu" required>
                         <option value="">Bitte wählen</option>
                         <!-- do kann meh au eh foreach loop mache -->
-                        <option value="1">1 Cores (5CHF / Monat)</option>
-                        <option value="1">2 Cores (5CHF / Monat)</option>
-                        <option value="1">4 Cores (5CHF / Monat)</option>
-                        <option value="1">8 Cores (5CHF / Monat)</option>
-                        <option value="1">16 Cores (5CHF / Monat)</option>
+                        <option value="50">50 GB</option>
+                        <option value="100">100 GB</option>
+                        <option value="250">250 GB</option>
+                        <option value="500">500 GB</option>
                     </select>
 
                     <button type="submit">VM erstellen</button>
@@ -331,42 +244,71 @@
                     <label for="vm_name_delete">Name der VM</label>
                     <input type="text" id="vm_name_delete" name="vm_name_delete" placeholder="z.B webserver-01" required>
 
-                    <button type="submit" class="delete">WM löschen</button>
+                    <button type="submit" class="delete">VM löschen</button>
 
                     <p>
-                        Hinweis: die vm wird gelöscht!!!!!!!!1!!1!
+                        Hinweis: die vm wird gelöscht!!!!!!!
                     </p>
                 </form>
+            </div>
+        </div>
+
+        <!-- Serverauslastung -->
+            <div class="card">
+                <h2>Physische Server - Auslastung</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Server</th>
+                            <th>CPU (verbraucht / gesamt)</th>
+                            <th>RAM (verbraucht / gesamt)</th>
+                            <th>SSD (verbraucht / gesamt)</th>
+                            <th>Ø Auslastung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- mit php fülle -->
+                    </tbody>
+                </table>
+
+                <p>SMALL</p>
+                <p>MEDIUM</p>
+                <p>BIG</p>
             </div>
 
             <!-- Liste der VMs -->
             <div class="card">
                 <h2>Laufende virtuelle Maschinen</h2>
-                <p>keine vms</p>
-
+                
                 <table>
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Name</th>
-                            <th>Name</th>
-                            <th>Name</th>
-                            <th>Name</th>
+                            <th>CPU</th>
+                            <th>RAM</th>
+                            <th>SSD</th>
+                            <th>Preis / Monat</th>
                         </tr>
                     </thead>
                 </table>
+
+                <p>keine vms</p>
             </div>
 
             <!-- Preis -->
             <div class="card">
                 <h2>Preis</h2>
+                <p>Gesamtpreis pro Monat: </p>
             </div>
-            
-        </div>
     </main>
 
     <footer>
         UberCloud
+        Erstellt von:
+        Luka Ilikj
+        Lukas Thommen
+        Dani el array_interse
+        Basel günterstrasse 5034
     </footer>
 
 
